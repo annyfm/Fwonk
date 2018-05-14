@@ -1,0 +1,106 @@
+bps (150/60)
+
+--
+-- drum
+--
+
+-- 4 to floor
+d1 $ stack [
+  superimpose (slow 1) $ sound "house*2",
+  0.5 ~> sound "cp"
+  ]
+
+-- marching drum
+d1 $ stack [
+  sound "house*2",
+  --slow 2 $ sound "house house [house [house]/2] house",
+  brak $ 0.5 ~> sound (pick <$> "sn*3 cp" <*> (spread iter [2,2,3]) "15 4 3 8")
+  --  |+| shape ((/1.2) <$> slow 8 sinewave1)
+  |+| resonance (slow 2 sinewave1)
+  ]
+
+-- crazy ass drum
+d1 $ slow 1 $ stack [
+  sound "house*2",
+  jux (spread slow [3,5] . rev) $ every 3 (striate 3) $ every 2 (brak) $ sound "house*2",
+  0.5 ~> sound "cp"
+  --sound "hh*4 [cp hh*2]"
+]
+
+-- *much* better crazy drum
+d1 $ stack [
+  sound "house*2",
+  jux (spread slow [3,5] . rev) $ every 3 (striate 3) $ every 2 (brak) $ sound "{rm*2, hh*4}",
+  0.5 ~> sound "cp"
+  ]
+
+--
+-- fwonk
+--
+
+-- cool fwonk lewp
+d2 $ every 3 (|+| resonance "0.5") $ slow 2 $ sound (pick <$> "fwonk*2 [fwonk/2]*3 fwonk/1" <*> spread slow [2,3,5] "1 2 3 4 5 10")
+  |+| vowel "a"
+  |+| shape ((/3) <$> sinewave1)
+
+-- cool #2 (more staccato, aggressive)
+d2 $ every 3 (|+| resonance "0.3") $ slow 2 $ sound (pick <$> "fwonk*2 [fwonk/2]*3 fwonk/1" <*> spread slow [2,3,5] (run 4))
+  |+| vowel "a u o"
+  |+| shape ((/2) <$> sinewave1)
+
+-- weird fwonks
+d2 $ every 5 (jux rev) $ every 3 (|+| resonance "0.4") $ slow 2 $ sound (pick <$> "fwonk*2 [fwonk/2]*3 fwonk/1" <*> slow 5 "2 4 6 9")
+  |+| vowel "a e"
+  |+| shape ((/3) <$> sinewave1)
+
+-- spaced fwonk
+d2 $ jux (iter 3) $ slow 4 $ interlace (sound "fwonk/1 space*2") (0.5 ~> sound "[space/2 fwonk*2]")
+  |+| vowel "a"
+  |+| resonance "0.5"
+  |+| shape "0.2"
+  |+| pan (density 3 sinewave1)
+
+--
+-- wind
+--
+
+d1 $ stack [
+  sound "house*2",
+  0.5 ~> sound "cp"
+  ]
+
+d3 $ every 3 (jux rev) $ smash 10 [1,2] $ slow 1 $ sound (pick <$> "[wind]/2 [can*2 [can/2]*2]" <*> (spread density [3,4] . iter 3) "0 2 4 6 8 9")
+  |+| shape ((/2) <$> slow 3 sinewave1)
+
+-- nice
+d3 $ every 3 (jux rev) $ smash 10 [1,2] $ sound (pick <$> "[wind]/2 [can*2 [can/2]*2]" <*> (spread density [3,4] . iter 3) "0 2 4 6 8 9")
+  |+| shape ((/2) <$> slow 3 sinewave1)
+
+-- nice in 4/4
+d3 $ slow 2 $ sound (pick <$> "[wind]/2 [can*2 [can/2]*2]" <*> slow 2 "0 2 4 5 7 1 3 5")
+  |+| shape ((/2) <$> slow 2 sinewave1)
+
+-- simple wind 4/4
+d3 $ sound (pick <$> "[wind]/2 [can*2 [can/2]*2]" <*> density 2 "0 1 2 3 7")
+  |+| vowel "e u"
+  |+| resonance ((/1.2) <$> sinewave1)
+
+--
+-- space - n.b. samples are way too loud
+--
+
+-- Sweet space break #1
+d4 $ spread striate [3,4] $ sound (pick <$> "space invaders" <*> spread density [2,2,5] "0 2 4 5 8 15 7")
+  |+| vowel "e"
+  |+| resonance "0.2"
+
+-- Sweet space break #2
+d4 $ striate 4 $ sound (pick <$> "[space invaders]*3" <*> spread density [2,3,5] "0 2 4 6")
+  |+| vowel "e"
+  |+| resonance "0.2"
+
+d4 $ sound "invaders"
+-- velocity does nothing??
+--  |+| velocity (run 10)
+-- gain not in scope 
+--  |+| gain "0"

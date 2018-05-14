@@ -1,0 +1,141 @@
+bps (146/60)
+
+--
+-- drum
+--
+
+d1 $ sound "house [~ house]"
+
+d1 $ sound "house [sn:2 house]"
+
+d1 $ sound "[house hh*2] [sn:2 house]"
+
+d1 $ every 4 rev $ sound "[house hh*2] [sn:2 house]"
+
+-- ooh
+d1 $ jux (slow 1.5 . iter 6) $ every 4 rev $ sound "[house hh*2] [sn:2 house]"
+-- "mono" copy
+d1 $ superimpose (slow 1.5 . iter 6) $ every 4 rev $ sound "[house hh*2] [sn:2 house]"
+
+d1 $ every 2 (slow 2 . brak) $ jux (slow 1.5 . iter 6) $ every 4 rev $ sound "[house rm*2] [sn:2 house]"
+
+-- nah
+--d1 $ superimpose (iter 4) $ every 4 rev $ sound "[house hh*2] [sn:2 house]"
+--d1 $ superimpose (slow 1.5 . iter 6) $ every 4 rev $ sound "[house hh*2] [sn:2 house]"
+
+--
+-- fwonk
+--
+
+d2 $ sound "fwonk:2"
+
+d2 $ sound "fwonk:2 fwonk:2*2"
+
+d2 $ sound (pick <$> "fwonk fwonk*2" <*> slow 7 (run 3))
+
+d2 $ every 2 (density 2) $ sound (pick <$> "fwonk fwonk*2" <*> slow 7 (run 3))
+
+d2 $ every 2 (density 2) $ sound (pick <$> "fwonk fwonk*2" <*> slow 7 (run 3))
+   |+| resonance ((/2) <$> slow 3 sinewave)
+
+d2 $ every 2 (density 2) $ sound (pick <$> "fwonk fwonk*2" <*> slow 7 (run 3))
+   |+| resonance ((/2) <$> slow 3 sinewave)
+   |+| shape ((/3) <$> slow 4 sinewave1)
+
+d2 $ every 3 (|+| vowel "a") $ every 2 (density 2) $ sound (pick <$> "fwonk fwonk*2" <*> slow 7 (run 3))
+   |+| resonance ((/2) <$> slow 3 sinewave)
+   |+| shape ((/3) <$> slow 4 sinewave1)
+
+d2 $ every 3 (|+| vowel "a") $ every 2 (density 2) $ sound (pick <$> "fwonk fwonk*2" <*> slow 7 (run 3))
+   |+| resonance ((/2) <$> slow 3 sinewave)
+   |+| shape ((/3) <$> slow 4 sinewave1)
+   |+| speed "1.8"
+
+--
+-- wind
+--
+
+d3 $ slow 4 $ sound "wind"
+
+d3 $ slow 4 $ sound "wind can"
+
+d3 $ slow 4 $ sound "wind [can can*2]"
+
+d3 $ slow 4 $ sound "[wind]/2 [can can*2]"
+
+d3 $ slow 4 $ sound (pick <$> "[wind]/2 [can can*2]" <*> slow 3 (run 4))
+
+d3 $ slow 4 $ sound (pick <$> "[wind]/2 [can can*2]" <*> slow 5 (run 8))
+
+d3 $ slow 3 $ sound (pick <$> "[wind]/2 [can can*2]" <*> slow 5 (run 8))
+
+d3 $ spread slow [3,2] $ sound (pick <$> "[wind]/2 [can can*2]" <*> slow 5 (run 8))
+
+d3 $ spread slow [2,1] $ sound (pick <$> "[wind]/2 [can can*2]" <*> slow 5 (run 8))
+
+d3 $ spread slow [2,1] $ sound (pick <$> "[wind]/2 [can can*2]" <*> slow 5 (run 8))
+   |+| shape ((/2) <$> slow 2 sinewave1)
+
+d3 $ spread slow [2,1] $ sound (pick <$> "[wind]/2 [can can*2]" <*> slow 5 (run 8))
+   |+| vowel "o u"
+   |+| shape ((/2) <$> slow 2 sinewave1)
+
+d3 $ spread slow [2,1] $ sound (pick <$> "[wind]/2 [can can*2]" <*> slow 5 (run 8))
+   |+| vowel "o u"
+   |+| shape ((/2) <$> slow 2 sinewave1)
+   |+| speed ((/) <$> slow 5 sinewave1 <*> "3 2 1")
+
+--
+-- bass
+--
+
+d5 $ sound "wobble"
+   |+| speed ((+0.3).(*1.3) <$> slow 4 sinewave1)
+
+d5 $ every 2 (density 2) $ sound "wobble"
+   |+| speed ((+0.3).(*1.3) <$> slow 4 sinewave1)
+
+d5 $ brak $ every 2 (density 2) $ sound "wobble"
+   |+| speed ((+0.3).(*1.3) <$> slow 4 sinewave1)
+
+d5 $ brak $ every 2 (density 2) $ sound "wobble"
+   |+| speed ((+0.3).(*1.3) <$> slow 4 sinewave1)
+   |+| shape "0.4"
+
+-- ugh
+d5 $ every 2 (|+| resonance "1") $ every 4 (density 1.1) $ brak $ every 2 (density 2) $ sound "wobble"
+   |+| speed ((+0.3).(*1.3) <$> slow 4 sinewave1)
+
+--
+-- lol
+--
+
+d5 $ spread density [1,2,1] $ sound (pick <$> "metal*2" <*> slow 6 (run 5))
+
+d5 $ spread density [1,2,1] $ sound (pick <$> "newnotes*2" <*> slow 6 (run 5))
+
+d5 $ spread density [1,1,2] $ sound (pick <$> "newnotes metal" <*> slow 8 (run 5))
+
+--
+-- click
+-- (maybe save this for a 4-to-floor track)
+
+d4 $ sound "click"
+
+d4 $ sound (pick <$> "click" <*> slow 5 (run 4))
+
+d4 $ density 2 $ sound (pick <$> "click" <*> slow 5 (run 4))
+
+d4 $ spread density [1,1,2] $ sound (pick <$> "click" <*> slow 5 (run 4))
+
+d4 $ spread density [1,2,1] $ sound (pick <$> "click" <*> slow 5 (run 4))
+
+-- more drums
+-- kinda shit but possible evolution
+
+d1 $ jux (slow 1.5 . iter 6) $ every 4 rev $ sound (pick <$> "[house hh*2] [sn:2 house]" <*> slow 2 (run 4))
+
+d1 $ stack [
+   jux (slow 1.5 . iter 6) $ every 4 rev $ 0.2 ~> sound (pick <$> "[rm hh*2] [sn:2 rm]" <*> slow 2 (run 4)),
+   sound "house*2"
+]

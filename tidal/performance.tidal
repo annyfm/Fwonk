@@ -1,0 +1,25 @@
+bps (146/60)
+
+d1 $ every 2 (density 2) $ sound "wobble"
+  |+| speed ((+0.3).(*1.3) <$> slow 4 sinewave1)
+  |+| shape "0.5"
+
+d2 $ spread slow [2,1] $ sound (pick <$> "[wind]/2 [can can*2]" <*> slow 5 (run 8))
+  |+| shape ((/2) <$> slow 2 sinewave1)
+  |+| speed ((/) <$> slow 5 sinewave1 <*> "3 2 1")
+
+d3 $ stack [
+  jux (slow 1.5 . iter 6) $ every 4 (rev) $ sound "[house rm*2] [sn house]",
+  sound "house*2"
+]
+
+d4 $ every 3 (|+| vowel "a") $ every 2 (density 2) $ sound (pick <$> "fwonk fwonk*2" <*> slow 5 (run 3))
+  |+| resonance ((/2) <$> slow 3 sinewave)
+  |+| shape ((/3) <$> slow 4 sinewave1)
+  |+| speed "1.6"
+
+hush
+
+-- fwónk
+-- recorded for the cauldron challenge 001 (soundcloud.com/fwonkrecords/sets/the-cauldron-challenge-001)
+-- song in emacs + tidal by anny fm (anny.fm, soundcloud.com/anny-fm)
